@@ -1,86 +1,65 @@
 import 'package:flutter/material.dart';
+import 'ejercicio1.dart';
+import 'ejercicio2.dart';
+import 'ejercicio3.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Lista con Imágenes y Fuentes"),
-        ),
-        body: ListView(
-          children: const [
-            CategoryItem(
-              title: "Manzana",
-              imageUrl: 'assets/images/apple.webp',
-              fontFamily: 'OpenSans',
-            ),
-            CategoryItem(
-              title: "Perro",
-              imageUrl: 'https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQgByBT5IiAT_a2x9pUVb4VMoOrlzHH7Jrzj-HB5jzHlR4lNLMS',
-              fontFamily: 'Lato',
-            ),
-            CategoryItem(
-              title: "París",
-              imageUrl: 'assets/images/paris.jpg',
-              fontFamily: 'Ubuntu',
-            ),
-          ],
-        ),
+      title: 'Ejercicios',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: const HomePage(),
+      routes: {
+        'lib/ejercicio1': (context) => Ejercicio1(),
+        'lib/ejercicio2': (context) => Ejercicio2(),
+        'lib/ejercicio3': (context) => Ejercicio3(),
+      },
     );
   }
 }
 
-class CategoryItem extends StatelessWidget {
-  final String title;
-  final String imageUrl;
-  final String fontFamily;
-
-  const CategoryItem({
-    Key? key,
-    required this.title,
-    required this.imageUrl,
-    required this.fontFamily,
-  }) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Container(
-            width: 80,
-            height: 80,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: imageUrl.startsWith('http')
-                    ? NetworkImage(imageUrl)
-                    : AssetImage(imageUrl) as ImageProvider,
-                fit: BoxFit.cover,
-              ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Ejercicios'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, 'lib/ejercicio1');
+              },
+              child: const Text('Ejercicio 1'),
             ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Text(
-              title,
-              style: TextStyle(
-                fontFamily: fontFamily,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, 'lib/ejercicio2');
+              },
+              child: const Text('Ejercicio 2'),
             ),
-          ),
-        ],
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, 'lib/ejercicio3');
+              },
+              child: const Text('Ejercicio 3'),
+            ),
+          ],
+        ),
       ),
     );
   }
